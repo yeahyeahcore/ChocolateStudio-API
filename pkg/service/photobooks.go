@@ -34,7 +34,7 @@ func (s *Service) GetPhotoBook(c *gin.Context) {
 	})
 }
 
-//DeletePhotoBook - функция для получения Фотокниг из БД
+//DeletePhotoBook - функция для удаления Фотокниги из БД
 func (s *Service) DeletePhotoBook(c *gin.Context) {
 	photoBook := &models.PhotoBook{}
 
@@ -50,7 +50,7 @@ func (s *Service) DeletePhotoBook(c *gin.Context) {
 	}
 }
 
-//UpdatePhotoBook - функция для обновление Фотокниг из БД
+//UpdatePhotoBook - функция для обновления Фотокниги из БД
 func (s *Service) UpdatePhotoBook(c *gin.Context) {
 	photoBook := &models.PhotoBook{}
 
@@ -76,6 +76,6 @@ func (s *Service) InsertPhotoBook(c *gin.Context) {
 
 	photoBookResult := s.db.Create(&photoBook)
 	if photoBookResult.RowsAffected == 0 {
-		c.String(404, "photoBook not founded")
+		c.String(404, "photoBook not created")
 	}
 }

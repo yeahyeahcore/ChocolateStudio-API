@@ -34,7 +34,7 @@ func (s *Service) GetPhotography(c *gin.Context) {
 	})
 }
 
-//DeletePhotography - функция для получения Фотостудии из БД
+//DeletePhotography - функция для удаления Фотостудии из БД
 func (s *Service) DeletePhotography(c *gin.Context) {
 	photography := &models.Photography{}
 
@@ -50,7 +50,7 @@ func (s *Service) DeletePhotography(c *gin.Context) {
 	}
 }
 
-//UpdatePhotography - функция для обновление Фотостудии из БД
+//UpdatePhotography - функция для обновления Фотостудии из БД
 func (s *Service) UpdatePhotography(c *gin.Context) {
 	photography := &models.Photography{}
 
@@ -76,6 +76,6 @@ func (s *Service) InsertPhotography(c *gin.Context) {
 
 	photographyResult := s.db.Create(&photography)
 	if photographyResult.RowsAffected == 0 {
-		c.String(404, "photography not founded")
+		c.String(404, "photography not created")
 	}
 }
