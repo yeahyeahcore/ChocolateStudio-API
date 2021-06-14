@@ -18,8 +18,10 @@ func Run(configpath string) {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
 	store := store.NewStore(config)
-	service := service.NewService(config, store)
+	service := service.NewService(store)
+
 	r := gin.New()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
@@ -32,6 +34,8 @@ func Run(configpath string) {
 		},
 		MaxAge: 12 * time.Hour,
 	}))
+
 	service.Set(r)
+
 	r.Run(fmt.Sprintf("%s:%s", config.HTTP.Host, config.HTTP.Port))
 }
