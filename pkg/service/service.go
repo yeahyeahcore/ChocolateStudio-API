@@ -53,4 +53,5 @@ func (s *Service) Set(r *gin.Engine) {
 	r.GET("/bookimages", s.GetAllPhotobookImage)
 	r.DELETE("/bookimage", s.DeletePhotobookImage)
 	r.POST("/bookimage", s.InsertPhotobookImage)
+	r.PATCH("/bookimage", s.UpdatePhotobookPhoto)
 }

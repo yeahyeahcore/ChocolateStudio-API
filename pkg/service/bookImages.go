@@ -82,13 +82,13 @@ func (s *Service) UpdatePhotobookPhoto(c *gin.Context) {
 
 	bookImageDeleteResult := s.db.Delete(&bookImage, "book_id=?", form.ID)
 	if bookImageDeleteResult.RowsAffected != 0 {
-		s.file.RemoveFilesFromFolder(fmt.Sprintf("%s/photobook_%d", s.file.PhotographyDir, form.ID))
+		s.file.RemoveFilesFromFolder(fmt.Sprintf("%s/photobook_%d", s.file.PhotoBookDir, form.ID))
 	}
 
 	for _, file := range form.Images {
 		bookImage = &models.Book_image{
 			BookID:   form.ID,
-			ImageURL: fmt.Sprintf("%s/photobook_%d/%s", s.conf.HTTP.PhotographyURL, form.ID, file.Filename),
+			ImageURL: fmt.Sprintf("%s/photobook_%d/%s", s.conf.HTTP.PhotobookURL, form.ID, file.Filename),
 		}
 		bookResult := s.db.Create(&bookImage)
 		if bookResult.RowsAffected == 0 {
@@ -98,7 +98,7 @@ func (s *Service) UpdatePhotobookPhoto(c *gin.Context) {
 		}
 	}
 
-	s.file.SaveFilesToFolder(fmt.Sprintf("%s/photobook_%d", s.file.PhotographyDir, form.ID), form.Images)
+	s.file.SaveFilesToFolder(fmt.Sprintf("%s/photobook_%d", s.file.PhotoBookDir, form.ID), form.Images)
 }
 
 //GetAllPhotobookImage - функция для получения всех изображений Фотокниги из БД
