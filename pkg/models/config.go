@@ -6,8 +6,12 @@ import (
 )
 
 type httpconf struct {
-	Host string `json:"host,omitempty"`
-	Port string `json:"port,omitempty"`
+	Host              string `json:"host,omitempty"`
+	Port              string `json:"port,omitempty"`
+	PhotographyFolder string `json:"photographyFolder,omitempty"`
+	PhotobookFolder   string `json:"photobookFolder,omitempty"`
+	PhotographyURL    string `json:"photographyImagesURL,omitempty"`
+	PhotobookURL      string `json:"photobookImagesURL,omitempty"`
 }
 
 type dbconf struct {

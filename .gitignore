@@ -2,9 +2,7 @@
 
 # dependencies
 /.vscode
-/.film-store
-./film-store
-/film-store
-film-store
-.KinoLab-Api
-KinoLab-Api
+/.images
+./images
+/images
+images

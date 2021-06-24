@@ -1,14 +1,18 @@
 {
-    "server": {
-        "host": "localhost",
-        "port": "5500"
-    },
+  "server": {
+    "host": "26.59.51.174",
+    "port": "5500",
+    "photographyFolder": "../images/photography",
+    "photobookFolder": "../images/photobook",
+    "photographyImagesURL": "/media/photography",
+    "photobookImagesURL": "/media/photobook"
+  },
 
-    "database": {
-        "username": "admin",
-        "password": "admin",
-        "dbname": "chocolateStudio",
-        "host": "localhost",
-        "port": "5432"
-    }
+  "database": {
+    "username": "admin",
+    "password": "admin",
+    "dbname": "chocolateStudio",
+    "host": "localhost",
+    "port": "5432"
+  }
 }

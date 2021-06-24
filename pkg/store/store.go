@@ -23,7 +23,7 @@ func NewStore(config *models.Config) *Store {
 		},
 	})
 
-	db.AutoMigrate(&models.PhotoBook{}, &models.Book_image{}, &models.Photo_image{}, &models.Photography{})
+	db.AutoMigrate(&models.Photobook{}, &models.Book_image{}, &models.Photo_image{}, &models.Photography{})
 	if err != nil {
 		panic(err)
 	}
