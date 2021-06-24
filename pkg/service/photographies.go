@@ -25,11 +25,7 @@ func (s *Service) GetPhotography(c *gin.Context) {
 		return
 	}
 
-	photosResult := s.db.Find(&photoimage, "photo_id=?", id)
-	if photosResult.RowsAffected == 0 {
-		c.String(404, "photos not founded")
-		return
-	}
+	s.db.Find(&photoimage, "photo_id=?", id)
 
 	c.JSON(200, map[string]interface{}{
 		"photo":       photoimage,
@@ -67,12 +63,7 @@ func (s *Service) UpdatePhotography(c *gin.Context) {
 	}
 
 	c.BindJSON(&photography)
-
-	photographyResult := s.db.Where("id=?", id).Updates(&photography)
-	if photographyResult.RowsAffected == 0 {
-		c.String(404, "photography not founded")
-		return
-	}
+	s.db.Where("id=?", id).Updates(&photography)
 }
 
 //InsertPhotography - функция для добавления Фотостудии в БД
@@ -96,17 +87,13 @@ func (s *Service) GetAllPhotography(c *gin.Context) {
 	photographies := &[]models.Photography{}
 	photoimages := &[]models.Photo_image{}
 
-	photographyResult := s.db.Find(&photographies)
+	photographyResult := s.db.Order("score desc").Find(&photographies)
 	if photographyResult.RowsAffected == 0 {
 		c.String(404, "photography not founded")
 		return
 	}
 
-	photosResult := s.db.Find(&photoimages)
-	if photosResult.RowsAffected == 0 {
-		c.String(404, "photos not founded")
-		return
-	}
+	s.db.Find(&photoimages)
 
 	c.JSON(200, map[string]interface{}{
 		"photo":       photoimages,

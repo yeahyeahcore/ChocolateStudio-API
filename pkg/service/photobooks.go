@@ -25,11 +25,7 @@ func (s *Service) GetPhotoBook(c *gin.Context) {
 		return
 	}
 
-	photosResult := s.db.Find(&bookImage, "book_id=?", id)
-	if photosResult.RowsAffected == 0 {
-		c.String(404, "photos not founded")
-		return
-	}
+	s.db.Find(&bookImage, "book_id=?", id)
 
 	c.JSON(200, map[string]interface{}{
 		"photo":     bookImage,
@@ -67,26 +63,23 @@ func (s *Service) UpdatePhotoBook(c *gin.Context) {
 	}
 
 	c.BindJSON(&photoBook)
-
-	photoBookResult := s.db.Where("id=?", id).Updates(&photoBook)
-	if photoBookResult.RowsAffected == 0 {
-		c.String(404, "photoBook not founded")
-		return
-	}
+	s.db.Where("id=?", id).Updates(&photoBook)
 }
 
 //InsertPhotoBook - функция для добавления Фотокниг в БД
 func (s *Service) InsertPhotoBook(c *gin.Context) {
 	photoBook := &models.Photobook{}
 
-	c.BindJSON(&photoBook)
+	c.ShouldBindJSON(&photoBook)
 
 	photoBookResult := s.db.Create(&photoBook)
 	if photoBookResult.RowsAffected == 0 {
 		c.String(404, "photoBook not created")
 		return
 	}
-	
+	c.JSON(200, map[string]uint{
+		"id": photoBook.ID,
+	})
 }
 
 //GetAllPhotoBook - функция для получения всех Фотокниг с Фотками из БД
@@ -94,17 +87,13 @@ func (s *Service) GetAllPhotoBook(c *gin.Context) {
 	photoBooks := &[]models.Photobook{}
 	bookImages := &[]models.Book_image{}
 
-	photoBookResult := s.db.Find(&photoBooks)
+	photoBookResult := s.db.Order("score desc").Find(&photoBooks)
 	if photoBookResult.RowsAffected == 0 {
 		c.String(404, "photoBook not founded")
 		return
 	}
 
-	photosResult := s.db.Find(&bookImages)
-	if photosResult.RowsAffected == 0 {
-		c.String(404, "photos not founded")
-		return
-	}
+	s.db.Find(&bookImages)
 
 	c.JSON(200, map[string]interface{}{
 		"photo":     bookImages,
